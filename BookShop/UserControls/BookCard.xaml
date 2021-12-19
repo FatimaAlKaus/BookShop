@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookShop.UserControls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              x:Name="bookCard"
@@ -18,22 +19,29 @@
              d:DesignWidth="800">
     <Grid>
         <materialDesign:Card
-  Width="150" Height="400">
+  Width="{Binding ElementName=bookCard, Path=Width}" Height="{Binding ElementName=bookCard, Path=Height}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition
         Height="*" />
                     <RowDefinition
-        Height="0.25*" />
+        Height="auto" />
                     <RowDefinition
         Height="auto" />
                 </Grid.RowDefinitions>
-                <Image Margin="5"
-      Source="pack://application:,,,/Resources/2878749_detail.jpg"
-      
-      Stretch="Uniform"
-      StretchDirection="both" />
+                <Grid Cursor="Hand" Background="Transparent">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding ElementName=bookCard, Path=Expand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
 
+                    <Image Margin="5"
+      Source="{Binding ElementName=bookCard, Path=Image}"
+      Stretch="Uniform"
+      StretchDirection="both"/>
+
+                </Grid>
                 <StackPanel Grid.Row="1" Margin="5">
                     <TextBlock 
                         TextWrapping="Wrap" FontWeight="Bold"
@@ -44,7 +52,7 @@
                 </StackPanel>
                 <DockPanel LastChildFill="False" Margin="5" Grid.Row="2">
                     <TextBlock FontWeight="Bold" DockPanel.Dock="Left" VerticalAlignment="Center" Text="{Binding Price,ElementName=bookCard, StringFormat ={}{0} Р}"/>
-                    <Button DockPanel.Dock="Right">Купить</Button>
+                    <Button Command="{Binding ElementName=bookCard, Path=Buy}" DockPanel.Dock="Right">Купить</Button>
                 </DockPanel>
             </Grid>
         </materialDesign:Card>

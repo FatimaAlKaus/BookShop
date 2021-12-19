@@ -16,7 +16,16 @@
         DataContext="{Binding Source={StaticResource VML}, Path=MainViewModel}">
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <userContols:BookCard Title="{Binding Title}" Price="{Binding Price}" Author="{Binding Author.FullName}" />
+            <userContols:BookCard
+                Image="pack://application:,,,/Resources/2878749_detail.jpg" 
+                Title="{Binding Title}" Price="{Binding Price}" Author="{Binding Author.FullName}" />
+
+            <userContols:BookCard
+                Expand="{Binding Buy}"
+                Buy="{Binding Buy}"
+                Image="pack://application:,,,/Resources/2878749_detail.jpg" 
+                Title="{Binding Title}" Price="{Binding Price}" Author="{Binding Author.FullName}" />
+
         </StackPanel>
     </Grid>
 </Window>

@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookShop.ViewModel
 {
@@ -20,6 +21,8 @@ namespace BookShop.ViewModel
 
         public decimal Price { get; set; } = 1212;
         public string Title { get; set; } = "Titiless";
+
+        public ICommand Buy => new DelegateCommand(() => { Title = Title + "1"; });
 
         public MainViewModel(IDbContext context)
         {

@@ -21,6 +21,42 @@ namespace BookShop.UserControls
     public partial class BookCard : UserControl
     {
 
+        public ICommand Expand
+        {
+            get { return (ICommand)GetValue(ExpandProperty); }
+            set { SetValue(ExpandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ExpandProperty =
+            DependencyProperty.Register("Expand", typeof(ICommand), typeof(BookCard), new PropertyMetadata(null));
+
+
+        public ICommand Buy
+        {
+            get { return (ICommand)GetValue(BuyProperty); }
+            set { SetValue(BuyProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Buy.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BuyProperty =
+            DependencyProperty.Register("Buy", typeof(ICommand), typeof(BookCard), new PropertyMetadata(null));
+
+
+
+        public ImageSource Image
+        {
+            get { return (ImageSource)GetValue(ImageProperty); }
+            set { SetValue(ImageProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Image.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ImageProperty =
+            DependencyProperty.Register("Image", typeof(ImageSource), typeof(BookCard));
+
+
+
+
 
         public int Price
         {
