@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookShop.ViewModel.VML
 {
-    public class ViewModelLocator
+    internal class ViewModelLocator
     {
         public MainViewModel MainViewModel => Ioc.Resolve<MainViewModel>();
     }

@@ -8,10 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\2878749_detail.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DevExpressMvvm" Version="21.1.5" />
+    <PackageReference Include="Mapster" Version="7.2.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +29,12 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\2878749_detail.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

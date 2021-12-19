@@ -3,11 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookShop"
-        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:userContols ="clr-namespace:BookShop.UserControls"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="MainWindow" Height="450" Width="800"
         DataContext="{Binding Source={StaticResource VML}, Path=MainViewModel}">
     <Grid>
-        
+        <StackPanel Orientation="Horizontal">
+            <userContols:BookCard Title="{Binding Title}" Price="{Binding Price}" Author="{Binding Author.FullName}" />
+        </StackPanel>
     </Grid>
 </Window>
