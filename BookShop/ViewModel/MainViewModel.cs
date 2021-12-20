@@ -18,6 +18,8 @@ namespace BookShop.ViewModel
     public class MainViewModel : BindableBase
     {
         private readonly IDbContext _context;
+        private readonly AdminPanelPage _adminPanelPage;
+        private readonly BookListPage _bookListPage;
 
         public string Genres { get; set; }
         public string Title { get; set; }
@@ -36,10 +38,13 @@ namespace BookShop.ViewModel
             _context.SaveChangesAsync();
 
         });
-        public ICommand ToCatalog => new DelegateCommand(() => { CurrentPage = Ioc.Resolve<BookListPage>(); });
-        public MainViewModel(IDbContext context)
+        public ICommand ToCatalog => new DelegateCommand(() => { CurrentPage = _bookListPage; });
+        public ICommand ToAdmin => new DelegateCommand(() => { CurrentPage = _adminPanelPage; });
+        public MainViewModel(IDbContext context, AdminPanelPage adminPanelPage, BookListPage bookListPage)
         {
             _context = context;
+            _adminPanelPage = adminPanelPage;
+            _bookListPage = bookListPage;
             CurrentPage = Ioc.Resolve<BookListPage>();
         }
     }

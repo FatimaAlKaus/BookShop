@@ -17,6 +17,7 @@
                     <StackPanel Orientation="Vertical">
                         <bookCard:BookCard 
                             Width="200"
+                            Height="300"
                             Title="{Binding Title}"
                             Price="{Binding Price}"
                             Author="{Binding Authors}"
@@ -26,7 +27,7 @@
             </ListBox.ItemTemplate>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True" Orientation="Horizontal"  />
+                    <WrapPanel  IsItemsHost="True" Orientation="Horizontal"  />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
