@@ -36,8 +36,15 @@ namespace BookShop
 
             services.AddSingleton<IConfiguration>(configuration);
             services.AddPersistence(configuration);
+
             services.AddTransient<MainViewModel>();
             services.AddSingleton<MainWindow>();
+
+            services.AddTransient<AdminPanelViewModel>();
+            services.AddTransient<AdminPanelPage>();
+
+            services.AddTransient<BookCatalogViewModel>();
+            services.AddTransient<BookListPage>();
         }
     }
 }

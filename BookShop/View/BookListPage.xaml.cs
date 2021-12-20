@@ -16,27 +16,13 @@ using System.Windows.Shapes;
 namespace BookShop.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for BookListPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class BookListPage : Page
     {
-        public MainWindow()
+        public BookListPage()
         {
             InitializeComponent();
-        }
-
-        private void OnClose(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
-        }
-        private void OnMinimize(object sender, MouseButtonEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
-
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
         }
     }
 }
