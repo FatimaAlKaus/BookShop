@@ -1,6 +1,7 @@
 ﻿using Application.DTO;
 using Application.Interfaces;
 using BookShop.View;
+using BookShop.View.Dialogs;
 using DevExpress.Mvvm;
 using Domain.Models;
 using Mapster;
@@ -20,7 +21,10 @@ namespace BookShop.ViewModel
         private readonly IDbContext _context;
         private readonly AdminPanelPage _adminPanelPage;
         private readonly BookListPage _bookListPage;
-
+        private readonly CartPage _cartPage;
+        public bool IsAuthorized => CurrentUser.Role != Role.Guest;
+        public bool IsAdmin => CurrentUser.Role == Role.Admin;
+        public UserDto CurrentUser { get; set; }
         public string Genres { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
@@ -40,12 +44,31 @@ namespace BookShop.ViewModel
         });
         public ICommand ToCatalog => new DelegateCommand(() => { CurrentPage = _bookListPage; });
         public ICommand ToAdmin => new DelegateCommand(() => { CurrentPage = _adminPanelPage; });
-        public MainViewModel(IDbContext context, AdminPanelPage adminPanelPage, BookListPage bookListPage)
+        public ICommand ToCart => new DelegateCommand(() => { CurrentPage = _cartPage; });
+
+        public ICommand Register => new DelegateCommand(() =>
+        {
+            var registrationDialog = Ioc.Resolve<RegisterDialog>();
+            registrationDialog.ShowDialog();
+            CurrentUser = new UserDto() { UserName = BookShop.CurrentUser.Name, Role = BookShop.CurrentUser.Role };
+            RaisePropertyChanged("IsAuthorized");
+            RaisePropertyChanged("IsAdmin");
+        });
+        public ICommand SignIn => new DelegateCommand(() => 
+        { 
+        });
+        public MainViewModel(
+            IDbContext context,
+            AdminPanelPage adminPanelPage,
+            BookListPage bookListPage,
+            CartPage cartPage)
         {
             _context = context;
             _adminPanelPage = adminPanelPage;
             _bookListPage = bookListPage;
-            CurrentPage = Ioc.Resolve<BookListPage>();
+            _cartPage = cartPage;
+            CurrentPage = _bookListPage;
+            CurrentUser = new UserDto() { UserName = BookShop.CurrentUser.Name, Role = BookShop.CurrentUser.Role };
         }
     }
 }

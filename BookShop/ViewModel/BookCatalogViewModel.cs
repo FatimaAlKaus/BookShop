@@ -17,8 +17,8 @@ namespace BookShop.ViewModel
         public BookCatalogViewModel(IDbContext context)
         {
             _context = context;
-            Books = _context.Books.Select(x => x.Adapt<BookDto>()).ToList();
+            //Books = _context.Books.Select(x => x.Adapt<BookDto>()).ToList();
         }
-        public List<BookDto> Books { get; set; }
+        public List<BookDto> Books => _context.Books.Select(x => x.Adapt<BookDto>()).ToList();
     }
 }

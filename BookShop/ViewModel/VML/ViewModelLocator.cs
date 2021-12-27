@@ -11,6 +11,12 @@ namespace BookShop.ViewModel.VML
         public MainViewModel MainViewModel => Ioc.Resolve<MainViewModel>();
         public AdminPanelViewModel AdminPanelViewModel => Ioc.Resolve<AdminPanelViewModel>();
 
+        public AddProductViewModel AddProductViewModel => Ioc.Resolve<AddProductViewModel>();
+
         public BookCatalogViewModel BookCatalogViewModel => Ioc.Resolve<BookCatalogViewModel>();
+
+        public SelectCategoriesViewModel SelectCategoriesViewModel => Ioc.Resolve<SelectCategoriesViewModel>();
+
+        public RegistrationViewModel RegistrationViewModel => Ioc.Resolve<RegistrationViewModel>();
     }
 }

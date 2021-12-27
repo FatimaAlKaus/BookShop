@@ -1,4 +1,7 @@
-﻿using BookShop.View;
+﻿using Application.Interfaces;
+using Application.Services;
+using BookShop.View;
+using BookShop.View.Dialogs;
 using BookShop.ViewModel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +27,7 @@ namespace BookShop
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
             _serviceProvider.GetRequiredService<BookShopDbContext>().Database.EnsureCreated();
+
         }
         public static T Resolve<T>() => _serviceProvider.GetRequiredService<T>();
 
@@ -43,8 +47,22 @@ namespace BookShop
             services.AddTransient<AdminPanelViewModel>();
             services.AddTransient<AdminPanelPage>();
 
-            services.AddTransient<BookCatalogViewModel>();
+            services.AddSingleton<BookCatalogViewModel>();
             services.AddTransient<BookListPage>();
+
+            services.AddTransient<AddProductViewModel>();
+            services.AddTransient<NewProductDialog>();
+
+            services.AddTransient<RegisterDialog>();
+            services.AddTransient<RegistrationViewModel>();
+
+            services.AddTransient<SelectCategoriesViewModel>();
+            services.AddTransient<SelectCategoriesDialog>();
+
+            services.AddTransient<IUserService, UserService>();
+
+            services.AddTransient<IBookService, BookService>();
+            services.AddTransient<CartPage>();
         }
     }
 }

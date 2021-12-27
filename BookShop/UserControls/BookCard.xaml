@@ -20,6 +20,16 @@
     <Grid>
         <materialDesign:Card
   Width="{Binding ElementName=bookCard, Path=Width}" Height="{Binding ElementName=bookCard, Path=Height}">
+            <materialDesign:Card.Style>
+                <Style TargetType="materialDesign:Card">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"/>
+
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </materialDesign:Card.Style>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition

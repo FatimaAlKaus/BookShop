@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookShop.View
+namespace BookShop.View.Dialogs
 {
     /// <summary>
-    /// Interaction logic for AdminPanelPage.xaml
+    /// Interaction logic for AuthorizeWindow.xaml
     /// </summary>
-    public partial class AdminPanelPage : Page
+    public partial class AuthorizeWindow : Window
     {
-        public AdminPanelPage()
+        public AuthorizeWindow()
         {
             InitializeComponent();
         }

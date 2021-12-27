@@ -15,6 +15,7 @@ namespace Application.Interfaces
 
         DbSet<Genre> Genres { get; set; }
         DbSet<Author> Authors { get; set; }
+        DbSet<Role> Roles { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

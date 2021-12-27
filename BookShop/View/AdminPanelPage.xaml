@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:BookShop.View"
        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -16,36 +17,50 @@
       DataContext="{Binding Source={StaticResource VML}, Path=AdminPanelViewModel}"
       Title="AdminPanelPage">
 
-    <Grid >
-        <DataGrid ItemsSource="{Binding Books}" 
+    <Grid>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <DataGrid Grid.Row="0" ItemsSource="{Binding Books}" 
        CanUserSortColumns="True"
        AutoGenerateColumns="False"
        CanUserAddRows="False">
 
-            <DataGrid.Columns>
-                <DataGridCheckBoxColumn
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn
       Binding="{Binding IsSelected}"
       ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
       EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
-                </DataGridCheckBoxColumn>
-                <DataGridTextColumn
+                    </DataGridCheckBoxColumn>
+                    <DataGridTextColumn
       Binding="{Binding Title}"
       Header="Название"
       EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                <DataGridTextColumn
+                    <DataGridTextColumn
       Binding="{Binding Price}"
       Header="Цена"
       EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                <DataGridTextColumn
+                    <DataGridTextColumn
       Binding="{Binding Authors}"
       Header="Авторы"
       EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                <DataGridTextColumn
+                    <DataGridTextColumn
       Binding="{Binding Genres}"
       Header="Жанры"
       EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
 
-            </DataGrid.Columns>
-        </DataGrid>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.Row="1" VerticalAlignment="Center"
+                Height="40" Width="40"
+                HorizontalAlignment="Right"
+                Margin="0 0 5 0"
+                Command="{Binding AddProduct}"
+                Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
+                <materialDesign:PackIcon Kind="Add"></materialDesign:PackIcon>
+            </Button>
+        </Grid>
     </Grid>
 </Page>

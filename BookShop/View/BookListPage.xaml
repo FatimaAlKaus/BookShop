@@ -10,26 +10,35 @@
       DataContext="{Binding Source={StaticResource VML}, Path=BookCatalogViewModel}"
       Title="BookListPage">
 
-    <Grid>
-        <ListBox ItemsSource="{Binding Books}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <bookCard:BookCard 
+    <Grid Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Books}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="FrameworkElement.Margin" Value="5"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <bookCard:BookCard 
                             Width="200"
                             Height="300"
+                            Image="{Binding ImagePath}"
                             Title="{Binding Title}"
                             Price="{Binding Price}"
                             Author="{Binding Authors}"
                             />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel  IsItemsHost="True" Orientation="Horizontal"  />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+
+                    <ItemsPanelTemplate>
+                        <WrapPanel  IsItemsHost="True" Orientation="Horizontal"  />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Page>

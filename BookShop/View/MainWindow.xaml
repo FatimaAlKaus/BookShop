@@ -24,7 +24,7 @@
              Background="{DynamicResource MaterialDesignDarkBackground}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
@@ -38,11 +38,33 @@
                     <materialDesign:PackIcon Foreground="White" Kind="WindowMinimize"/>
                 </Grid>
                 <Grid Background="Transparent" Cursor="Hand" MouseDown="OnClose">
-                    <materialDesign:PackIcon Foreground="White" Kind="Close"/>
+                    <materialDesign:PackIcon HorizontalAlignment="Left" Foreground="White" Kind="Close"/>
                 </Grid>
             </StackPanel>
-            <Grid Grid.ColumnSpan="2" Background="Transparent" MouseDown="Grid_MouseDown"/>
-            <Frame Padding="10" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPage }">
+            <Grid Grid.Row="0" Background="Transparent" Visibility="{Binding IsAuthorized,Converter={StaticResource InverseBoolToVisConverter} }" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.ColumnSpan="2" Background="Transparent" MouseDown="Grid_MouseDown"/>
+                <TextBlock Grid.Row="1" Text="{Binding CurrentUser.UserName}"></TextBlock>
+                <Button Command="{Binding SignIn}" Foreground="{DynamicResource PrimaryHueDarkBrush}" Style="{StaticResource MaterialDesignFlatAccentButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="User"/>
+                        <TextBlock>Войти</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding Register}" Margin="5" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>Регистрация</TextBlock>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Frame NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPage }">
 
             </Frame>
             <Grid Grid.Row="1">
@@ -55,7 +77,7 @@
                 <RadioButton Content="Новинки" Style="{StaticResource MenuButton}" Grid.Row="0">
                 </RadioButton>
                 <RadioButton IsChecked="True" Command="{Binding ToCatalog}" Content="Каталог" Style="{StaticResource MenuButton}" Grid.Row="1"></RadioButton>
-                <RadioButton Content="Корзина" Style="{StaticResource MenuButton}" Grid.Row="2"></RadioButton>
+                <RadioButton Command="{Binding ToCart}" Content="Корзина" Style="{StaticResource MenuButton}" Grid.Row="2"></RadioButton>
                 <RadioButton Command="{Binding ToAdmin}" Content="Админка" Style="{StaticResource MenuButton}" Grid.Row="3"></RadioButton>
             </Grid>
         </Grid>

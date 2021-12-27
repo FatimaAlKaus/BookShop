@@ -17,6 +17,7 @@ namespace Application.Mapper
                 Authors = string.Join(", ", book.Authors.Select(x => x.FullName)),
                 Title = book.Title,
                 Genres = string.Join(", ", book.Genres.Select(x => x.Name)),
+                ImagePath = book.ImagePath,
                 Price = book.Price,
             };
         }
