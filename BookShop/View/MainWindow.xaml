@@ -63,6 +63,14 @@
                     </StackPanel>
                 </Button>
             </Grid>
+            <TextBlock 
+                Visibility="{Binding IsAuthorized, Converter={StaticResource BooleanToVisibilityConverter} }"
+                Grid.Column="1"
+                VerticalAlignment="Bottom" 
+                Margin="20 0"
+                Foreground="{DynamicResource PrimaryHueLightBrush}"
+                Text="{Binding CurrentUser.Balance, StringFormat={}Баланс: {0} руб}" FontWeight="Bold" FontSize="14">
+            </TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Visibility="{Binding IsAuthorized, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="1" >
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon VerticalAlignment="Center" Kind="User"/>

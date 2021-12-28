@@ -10,10 +10,12 @@ namespace BookShop
     {
         private static string _name;
 
-        public static string Name => _name;
-
         private static string _role;
+        private static int _balance;
+
+        public static string Name => _name;
         public static string Role => _role;
+        public static int Balance => _balance;
         static CurrentUser()
         {
             SignOut();
@@ -22,12 +24,14 @@ namespace BookShop
         {
             _name = "Гость";
             _role = Persistence.Constants.Role.Guest;
+            _balance = 0;
         }
 
-        public static void SetUser(string name, string role)
+        public static void SetUser(string name, string role, int balance)
         {
             _name = name;
             _role = role;
+            _balance = balance;
         }
     }
 }

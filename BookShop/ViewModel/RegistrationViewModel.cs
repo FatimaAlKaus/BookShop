@@ -31,7 +31,7 @@ namespace BookShop.ViewModel
                 var pass = (PasswordBox)password;
                 RegisteredUser.Password = pass.Password;
                 var currentUser = _userService.RegisterUser(RegisteredUser);
-                CurrentUser.SetUser(currentUser.UserName, currentUser.Role);
+                CurrentUser.SetUser(currentUser.UserName, currentUser.Role,currentUser.Balance);
                 OnClosed?.Invoke();
             }
             else

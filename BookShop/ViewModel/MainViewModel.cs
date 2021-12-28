@@ -58,7 +58,7 @@ namespace BookShop.ViewModel
         {
             var signInDialog = Ioc.Resolve<AuthorizeWindow>();
             signInDialog.ShowDialog();
-            CurrentUser = new UserDto() { UserName = BookShop.CurrentUser.Name, Role = BookShop.CurrentUser.Role };
+            CurrentUser = new UserDto() { UserName = BookShop.CurrentUser.Name, Role = BookShop.CurrentUser.Role, Balance = BookShop.CurrentUser.Balance };
             RaisePropertyChanged("IsAuthorized");
             RaisePropertyChanged("IsAdmin");
         });

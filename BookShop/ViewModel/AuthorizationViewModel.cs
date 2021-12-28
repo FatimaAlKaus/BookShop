@@ -30,7 +30,7 @@ namespace BookShop.ViewModel
             var currentUser = _userService.SignIn(User.UserName, User.Password);
             if (currentUser != null)
             {
-                CurrentUser.SetUser(currentUser.UserName, currentUser.Role);
+                CurrentUser.SetUser(currentUser.UserName, currentUser.Role,currentUser.Balance);
                 OnClosed?.Invoke();
             }
             else
