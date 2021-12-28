@@ -20,13 +20,18 @@ namespace BookShop.ViewModel
             _context = context;
             //Books = _context.Books.Select(x => x.Adapt<BookDto>()).ToList();
         }
-        public string SearchString { get; set; }
-        public List<BookDto> Books => _context.Books.Include(x => x.Authors).Select(x => new BookDto()
-        {
-            Authors = String.Join(",", x.Authors.Select(x => x.FullName)),
-            Title = x.Title,
-            Price = x.Price,
-            ImagePath = x.ImagePath,
-        }).ToList();
+        public string SearchString { get => _searchString; set { _searchString = value; RaisePropertyChanged("Books"); } }
+        private string _searchString = "";
+        public List<BookDto> Books => _context.Books.Include(x => x.Authors).Where(x =>
+            x.Title.Contains(SearchString) ||
+            x.Authors.Any(a => a.FullName.Contains(SearchString))
+
+            ).Select(x => new BookDto()
+            {
+                Authors = String.Join(",", x.Authors.Select(x => x.FullName)),
+                Title = x.Title,
+                Price = x.Price,
+                ImagePath = x.ImagePath,
+            }).ToList();
     }
 }

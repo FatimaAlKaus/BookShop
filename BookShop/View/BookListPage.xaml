@@ -32,6 +32,7 @@
                 </materialDesign:HintAssist.Hint>
             </TextBox>
             <materialDesign:PackIcon 
+                Opacity=".7"
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Right" 
                 Foreground="{DynamicResource PrimaryHueDarkBrush}"
