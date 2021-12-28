@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using DevExpress.Mvvm;
 using Mapster;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,12 @@ namespace BookShop.ViewModel
             _context = context;
             //Books = _context.Books.Select(x => x.Adapt<BookDto>()).ToList();
         }
-        public List<BookDto> Books => _context.Books.Select(x => x.Adapt<BookDto>()).ToList();
+        public List<BookDto> Books => _context.Books.Include(x => x.Authors).Select(x=>new BookDto()
+        { 
+            Authors=String.Join(",",x.Authors.Select(x=>x.FullName)),
+            Title=x.Title,
+            Price=x.Price,
+            ImagePath =x.ImagePath,
+        }).ToList();
     }
 }

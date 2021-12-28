@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Domain.Models;
 using Mapster;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,12 @@ namespace Application.Services
         {
             this._context = context;
         }
+
+        public bool CheckUserName(string userName)
+        {
+            return _context.Users.Any(u => u.UserName == userName);
+        }
+
         public UserDto RegisterUser(UserDto user)
         {
             var role = _context.Roles.FirstOrDefault(x => x.Name == "Customer");
@@ -26,8 +33,8 @@ namespace Application.Services
                 CreatedDate = DateTimeOffset.UtcNow,
                 UserName = user.UserName,
                 Role = role,
-                Email = "kek",
-                Password = user.Password.GetHashCode().ToString(),
+                Balance = 0,
+                Password = user.Password,
             };
             var entry = _context.Users.Add(model);
             _context.SaveChangesAsync();
@@ -35,7 +42,10 @@ namespace Application.Services
         }
         public UserDto SignIn(string userName, string password)
         {
-            return _context.Users.FirstOrDefault(x => x.UserName == userName && x.Password == password.GetHashCode().ToString()).Adapt<UserDto>();
+            var model = _context.Users.Include(x => x.Role).FirstOrDefault(x => x.UserName == userName && x.Password == password);
+            if (model == null)
+                return null;
+            return new UserDto() { Role = model.Role.Name, UserName = model.UserName };
 
         }
     }

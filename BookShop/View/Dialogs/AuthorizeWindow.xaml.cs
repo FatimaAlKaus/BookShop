@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookShop.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace BookShop.View.Dialogs
         public AuthorizeWindow()
         {
             InitializeComponent();
+            ((AuthorizationViewModel)this.DataContext).OnClosed += Close;
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Close();
         }
     }
 }

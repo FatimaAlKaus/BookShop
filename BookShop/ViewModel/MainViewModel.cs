@@ -22,8 +22,8 @@ namespace BookShop.ViewModel
         private readonly AdminPanelPage _adminPanelPage;
         private readonly BookListPage _bookListPage;
         private readonly CartPage _cartPage;
-        public bool IsAuthorized => CurrentUser.Role != Role.Guest;
-        public bool IsAdmin => CurrentUser.Role == Role.Admin;
+        public bool IsAuthorized => CurrentUser.Role != Persistence.Constants.Role.Guest;
+        public bool IsAdmin => CurrentUser.Role == Persistence.Constants.Role.Admin;
         public UserDto CurrentUser { get; set; }
         public string Genres { get; set; }
         public string Title { get; set; }
@@ -54,9 +54,25 @@ namespace BookShop.ViewModel
             RaisePropertyChanged("IsAuthorized");
             RaisePropertyChanged("IsAdmin");
         });
-        public ICommand SignIn => new DelegateCommand(() => 
-        { 
+        public ICommand SignIn => new DelegateCommand(() =>
+        {
+            var signInDialog = Ioc.Resolve<AuthorizeWindow>();
+            signInDialog.ShowDialog();
+            CurrentUser = new UserDto() { UserName = BookShop.CurrentUser.Name, Role = BookShop.CurrentUser.Role };
+            RaisePropertyChanged("IsAuthorized");
+            RaisePropertyChanged("IsAdmin");
         });
+        public ICommand SignOut => new DelegateCommand(() =>
+        {
+            BookShop.CurrentUser.SignOut();
+            CurrentUser = new UserDto() { UserName = BookShop.CurrentUser.Name, Role = BookShop.CurrentUser.Role };
+            if (CurrentPage == _adminPanelPage)
+            {
+                CurrentPage = null;
+            }
+            RaisePropertyChanged("IsAuthorized");
+            RaisePropertyChanged("IsAdmin");
+        }, () => IsAuthorized);
         public MainViewModel(
             IDbContext context,
             AdminPanelPage adminPanelPage,

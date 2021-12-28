@@ -6,6 +6,7 @@ using BookShop.ViewModel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
+using Persistence.Constants;
 using Persistence.EF;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,11 @@ namespace BookShop
             IServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
-            _serviceProvider.GetRequiredService<BookShopDbContext>().Database.EnsureCreated();
+            var dataBase = _serviceProvider.GetRequiredService<BookShopDbContext>();
+            if (dataBase.Database.EnsureCreated())
+            {
+                DatabaseInitializer.Initialize(dataBase);
+            }
 
         }
         public static T Resolve<T>() => _serviceProvider.GetRequiredService<T>();
@@ -59,8 +64,10 @@ namespace BookShop
             services.AddTransient<SelectCategoriesViewModel>();
             services.AddTransient<SelectCategoriesDialog>();
 
-            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<AuthorizationViewModel>();
+            services.AddTransient<AuthorizeWindow>();
 
+            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<CartPage>();
         }

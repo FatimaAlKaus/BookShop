@@ -29,6 +29,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Center">Регистрация</TextBlock>
         <materialDesign:PackIcon Kind="User" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" Grid.Row="1"/>
         <Grid Background="Transparent" Grid.RowSpan="3" MouseDown="Grid_MouseDown"/>
         <Grid Cursor="Hand" MouseDown="Grid_MouseDown_1"  HorizontalAlignment="Right" Grid.Row="0" Background="Transparent">
@@ -55,7 +56,7 @@
             </PasswordBox>
 
         </StackPanel>
-        <Button Command="{Binding SaveUser}"  VerticalAlignment="Center" Grid.Row="3" Margin="5" HorizontalAlignment="Center" Content="Зарегистрироваться">
+        <Button Command="{Binding SaveUser}" CommandParameter="{Binding ElementName=Password}"  VerticalAlignment="Center" Grid.Row="3" Margin="5" HorizontalAlignment="Center" Content="Зарегистрироваться">
         </Button>
     </Grid>
 </Window>

@@ -19,6 +19,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         BorderBrush="{DynamicResource PrimaryHueDarkBrush}"
         BorderThickness="1"
+        DataContext="{Binding Source={StaticResource VML}, Path=AuthorizationViewModel}"
         Title="RegisterDialog" Height="350" Width="300">
     <Grid>
         <Grid.RowDefinitions>
@@ -29,7 +30,7 @@
         </Grid.RowDefinitions>
         <materialDesign:PackIcon Kind="User" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150" Grid.Row="1"/>
         <Grid Background="Transparent" Grid.RowSpan="3" />
-        <Grid Cursor="Hand"   HorizontalAlignment="Right" Grid.Row="0" Background="Transparent">
+        <Grid Cursor="Hand" MouseDown="Grid_MouseDown" HorizontalAlignment="Right" Grid.Row="0" Background="Transparent">
             <materialDesign:PackIcon Foreground="White" Kind="Close"/>
         </Grid>
         <StackPanel Grid.Row="2"
@@ -41,7 +42,7 @@
   materialDesign:HintAssist.Hint="Name">
                 <TextBox.Text>
                     <Binding
-      Path="RegisteredUser.UserName"
+      Path="User.UserName"
       UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule/>
@@ -51,11 +52,10 @@
             </TextBox>
             <PasswordBox x:Name="Password" Width="200" PasswordChar="*" materialDesign:HintAssist.Hint="Password">
             </PasswordBox>
-
         </StackPanel>
         <Button 
-            Command="{Binding SaveUser}"
-            CommandParameter="{Binding ElementName=Password, Path=Password}"
+            Command="{Binding SignIn}"
+            CommandParameter="{Binding ElementName=Password}"
             VerticalAlignment="Center"
             Grid.Row="3"
             Margin="5"

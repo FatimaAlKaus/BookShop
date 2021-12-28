@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookShop
+namespace Persistence.Constants
 {
-    internal static class Role
+    public static class Role
     {
         public static string Admin => "Admin";
         public static string Customer => "Customer";

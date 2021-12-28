@@ -33,9 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\2878749_detail.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

@@ -16,8 +16,12 @@ namespace BookShop
         public static string Role => _role;
         static CurrentUser()
         {
+            SignOut();
+        }
+        public static void SignOut()
+        {
             _name = "Гость";
-            _role = BookShop.Role.Guest;
+            _role = Persistence.Constants.Role.Guest;
         }
 
         public static void SetUser(string name, string role)

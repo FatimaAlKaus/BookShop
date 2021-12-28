@@ -10,6 +10,6 @@
       Title="CartPage">
 
     <Grid>
-        <bookCard:BookCard Width="200" Height="350" Image="pack://application:,,,/Resources/2878749_detail.jpg"/>
+        <bookCard:BookCard Width="200" Height="350" />
     </Grid>
 </Page>

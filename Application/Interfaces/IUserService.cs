@@ -11,5 +11,6 @@ namespace Application.Interfaces
     {
         UserDto RegisterUser(UserDto user);
         UserDto SignIn(string userName, string password);
+        bool CheckUserName(string userName);
     }
 }

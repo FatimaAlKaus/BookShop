@@ -12,7 +12,7 @@ namespace Application.Interfaces
     {
         DbSet<Book> Books { get; set; }
         DbSet<User> Users { get; set; }
-
+        DbSet<Order> Orders { get; set; }
         DbSet<Genre> Genres { get; set; }
         DbSet<Author> Authors { get; set; }
         DbSet<Role> Roles { get; set; }
