@@ -37,7 +37,7 @@ namespace Application.Services
                 Password = user.Password,
             };
             var entry = _context.Users.Add(model);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return entry.Entity.Adapt<UserDto>();
         }
         public UserDto SignIn(string userName, string password)

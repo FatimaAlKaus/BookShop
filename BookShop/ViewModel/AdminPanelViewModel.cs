@@ -26,14 +26,18 @@ namespace BookShop.ViewModel
         public AdminPanelViewModel(IDbContext context, IConfiguration configuration)
         {
             _context = context;
-            Books = new List<BookDto>(_context.Books.Select(x => x.Adapt<BookDto>()));
-            Genres = new List<GenreDto>(_context.Genres.Select(x => x.Adapt<GenreDto>()));
+            Books = _context.Books.Select(x => x.Adapt<BookDto>()).ToList();
+            Genres = _context.Genres.Select(x => x.Adapt<GenreDto>()).ToList();
             _configuration = configuration;
         }
-      
-        public ICommand AddProduct => new DelegateCommand(() => 
+
+        public ICommand AddProduct => new DelegateCommand(() =>
         {
             NewProductDialog newProductDialog = new NewProductDialog();
+            newProductDialog.Closed += (obj, e) =>
+            {
+                Books = _context.Books.Select(x => x.Adapt<BookDto>()).ToList();
+            };
             newProductDialog.ShowDialog();
         });
     }

@@ -24,7 +24,9 @@ namespace Application.Services
                 FullName = bookDto.Authors,
                 CreatedDate = DateTimeOffset.Now,
             };
-            var genres = bookDto.GenresDto.Select(x => _context.Genres.FirstOrDefault(y => y.Id == x.Id)).ToList();
+            var genres = new List<Genre>();
+            if (bookDto.GenresDto != null)
+                genres = bookDto.GenresDto.Select(x => _context.Genres.FirstOrDefault(y => y.Id == x.Id)).ToList();
             Book book = new Book()
             {
                 Title = bookDto.Title,
@@ -32,10 +34,10 @@ namespace Application.Services
                 ImagePath = bookDto.ImagePath,
                 Price = bookDto.Price,
                 Authors = new List<Author>() { authors },
-                Genres=genres,
+                Genres = genres,
             };
             _context.Books.Add(book);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }

@@ -39,10 +39,20 @@ namespace BookShop.ViewModel
             var author = new Author() { FullName = Author, CreatedDate = createdDate };
             var book = new Book() { Authors = new List<Author>() { author }, CreatedDate = createdDate, Genres = new List<Genre>(genres), Price = Price, Title = Title };
             _context.Books.Add(book);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
 
         });
-        public ICommand ToCatalog => new DelegateCommand(() => { CurrentPage = _bookListPage; });
+        public ICommand ToCatalog => new DelegateCommand(() =>
+        {
+            if (CurrentPage == _bookListPage)
+            {
+                CurrentPage = _bookListPage;
+            }
+            else
+            {
+                CurrentPage = Ioc.Resolve<BookListPage>();
+            }
+        });
         public ICommand ToAdmin => new DelegateCommand(() => { CurrentPage = _adminPanelPage; });
         public ICommand ToCart => new DelegateCommand(() => { CurrentPage = _cartPage; });
 

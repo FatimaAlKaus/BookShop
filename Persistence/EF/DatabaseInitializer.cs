@@ -28,7 +28,7 @@ namespace Persistence.EF
                 Password = "admin",
                 UserName = "admin",
             });
-            context.SaveChangesAsync();
+            context.SaveChanges();
         }
     }
 }

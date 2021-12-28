@@ -13,7 +13,6 @@ namespace Persistence.EF
     {
         public BookShopDbContext(DbContextOptions<BookShopDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<Book> Books { get; set; }

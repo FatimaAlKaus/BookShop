@@ -20,8 +20,8 @@
     <Grid>
         <Grid >
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
                 <RowDefinition/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <DataGrid Grid.Row="0" ItemsSource="{Binding Books}" 
        CanUserSortColumns="True"
