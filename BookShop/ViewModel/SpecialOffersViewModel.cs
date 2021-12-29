@@ -8,25 +8,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookShop.ViewModel
 {
     public class SpecialOffersViewModel : BindableBase
     {
         private readonly IDbContext _context;
+        private readonly IUserService _userService;
 
-        public SpecialOffersViewModel(IDbContext context)
+        public SpecialOffersViewModel(IDbContext context, IUserService userService)
         {
             _context = context;
+            _userService = userService;
         }
-        public List<BookDto> Books => _context.Books.Include(x => x.Authors)
-                    .Select(x => new BookDto()
-                    {
-                        Authors = String.Join(",", x.Authors.Select(x => x.FullName)),
-                        Title = x.Title,
-                        Price = x.Price,
-                        Id = x.Id,
-                        ImagePath = x.ImagePath,
-                    }).ToList();
+        public List<DiscountBookDto> Books
+        {
+            get
+            {
+                return _userService.OfferBooks(EntireUser.Id, 3);
+
+            }
+        }
     }
 }

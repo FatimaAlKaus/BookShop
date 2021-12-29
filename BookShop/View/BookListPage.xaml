@@ -85,7 +85,10 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <materialDesign:Badged BadgeColorZoneMode="PrimaryDark"  Panel.ZIndex="1" HorizontalAlignment="Right" Visibility="{Binding IsNew, Converter={StaticResource BooleanToVisibilityConverter}}" Badge="new"/>
+                            <materialDesign:Badged Margin="0 0 10 0" BadgeColorZoneMode="PrimaryDark" 
+                                                   Panel.ZIndex="1" HorizontalAlignment="Right"
+                                                   Visibility="{Binding IsNew, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                                                   Badge="new"/>
                             <bookCard:BookCard Panel.ZIndex="0"
                             Width="200"
                             PriceVisability="True"

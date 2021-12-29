@@ -57,5 +57,29 @@ namespace Application.Services
             return new UserDto() { Role = model.Role.Name, UserName = model.UserName, Balance = model.Balance, Id = model.Id };
 
         }
+
+        public List<GenreDto> GetFavoriteGenres(int userId)
+        {
+            var user = _context.Users.Include(x => x.Books).ThenInclude(x => x.Genres).FirstOrDefault(x => x.Id == userId);
+            var orderedGenres = user.Books.SelectMany(x => x.Genres).GroupBy(x => x).OrderByDescending(x => x.Count()).Select(x => x.Key);
+            return orderedGenres.Select(x => new GenreDto() { Id = x.Id, Name = x.Name }).ToList();
+        }
+        public List<DiscountBookDto> OfferBooks(int userId, int take)
+        {
+            var user = _context.Users.Include(x => x.Books).FirstOrDefault(x => x.Id == userId);
+            var genres = GetFavoriteGenres(userId);
+            var unboughtBooks = _context.Books.Include(x => x.Genres).Include(x => x.Authors)
+                .Where(x => !user.Books.Contains(x));
+            return unboughtBooks.OrderByDescending(x => x.Genres.Where(y => genres.Select(z => z.Id).Contains(y.Id)).Count())
+                .Select(x => new DiscountBookDto()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    OldPrice = x.Price,
+                    Authors = String.Join(", ", x.Authors.Select(x => x.FullName)),
+                    Genres = String.Join(", ", x.Genres),
+                    ImagePath = x.ImagePath,
+                }).Take(take).ToList();
+        }
     }
 }

@@ -12,7 +12,9 @@ namespace Application.Interfaces
         UserDto RegisterUser(UserDto user);
         UserDto SignIn(string userName, string password);
         bool CheckUserName(string userName);
+        List<GenreDto> GetFavoriteGenres(int userId);
 
         UserDto GetUserById(int id);
+        List<DiscountBookDto> OfferBooks(int userId, int take);
     }
 }
