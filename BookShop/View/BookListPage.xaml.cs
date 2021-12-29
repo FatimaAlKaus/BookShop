@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BookShop.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +20,20 @@ namespace BookShop.View
     /// <summary>
     /// Interaction logic for BookListPage.xaml
     /// </summary>
-    public partial class BookListPage : Page
+    public partial class BookListPage : Page, INotifyPropertyChanged
     {
         public BookListPage()
         {
             InitializeComponent();
+            ((BookCatalogViewModel)this.DataContext).PropertyChanged += PropertyChanged;
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void Order_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            OrderIcon.IsManipulationEnabled = !OrderIcon.IsManipulationEnabled;
+            OrderIcon.Kind = OrderIcon.Kind = OrderIcon.Kind != MaterialDesignThemes.Wpf.PackIconKind.ArrowDown ? MaterialDesignThemes.Wpf.PackIconKind.ArrowDown : MaterialDesignThemes.Wpf.PackIconKind.ArrowUp;
         }
     }
 }

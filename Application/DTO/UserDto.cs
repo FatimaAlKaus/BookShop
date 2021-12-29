@@ -11,10 +11,11 @@ namespace Application.DTO
     {
         public string this[string columnName] => GetValidationError(columnName);
 
+        public int Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
-        public int Balance { get; set; }
+        public decimal Balance { get; set; }
         public string Error => throw new NotImplementedException();
         private static readonly string[] ValidatedProperties = { "UserName" };
         public bool IsValid

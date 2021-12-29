@@ -7,6 +7,7 @@
       xmlns:local="clr-namespace:BookShop.View"
       xmlns:bookCard="clr-namespace:BookShop.UserControls"
       mc:Ignorable="d" 
+      x:Name="catalog"
       d:DesignHeight="450" d:DesignWidth="800"
       DataContext="{Binding Source={StaticResource VML}, Path=BookCatalogViewModel}"
       Title="BookListPage">
@@ -16,13 +17,17 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
         <Grid Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBox 
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="1" 
                 HorizontalAlignment="Stretch"
                 Foreground="{DynamicResource PrimaryHueDarkBrush}"
                 Text="{Binding SearchString,UpdateSourceTrigger=PropertyChanged}"
@@ -32,11 +37,43 @@
                 </materialDesign:HintAssist.Hint>
             </TextBox>
             <materialDesign:PackIcon 
+                Grid.Row="1"
                 Opacity=".7"
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Right" 
                 Foreground="{DynamicResource PrimaryHueDarkBrush}"
                 Kind="Search" />
+            <StackPanel  
+                Orientation="Horizontal"
+                Grid.RowSpan="2" 
+                Grid.Column="1"
+                Margin="20 0">
+
+                <ComboBox
+                SelectedIndex="{Binding SelectedIndex}"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"
+                Grid.Column="1"
+  materialDesign:HintAssist.Hint="Сортировать по"
+  IsEditable="False"
+  Foreground="{DynamicResource PrimaryHueDarkBrush}"
+  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+  ItemsSource="{Binding SortingTypes}"
+                      >
+                </ComboBox>
+                <Grid MouseDown="Order_MouseDown" Cursor="Hand" Background="Transparent">
+                    <materialDesign:PackIcon 
+                x:Name="OrderIcon"
+                Width="25"                            
+                Height="25" 
+                IsManipulationEnabled="{Binding IsDescending, Mode=TwoWay}"
+                VerticalAlignment="Bottom"
+                Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                Kind="ArrowUpward" >
+
+                    </materialDesign:PackIcon>
+                </Grid>
+            </StackPanel>
         </Grid>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Books}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -48,13 +85,18 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <bookCard:BookCard 
+                            <materialDesign:Badged BadgeColorZoneMode="PrimaryDark"  Panel.ZIndex="1" HorizontalAlignment="Right" Visibility="{Binding IsNew, Converter={StaticResource BooleanToVisibilityConverter}}" Badge="new"/>
+                            <bookCard:BookCard Panel.ZIndex="0"
                             Width="200"
+                            PriceVisability="True"
+                            ButtonVisability="True"
                             Height="300"
+                            CommandParameter="{Binding Id}"
                             Image="{Binding ImagePath}"
                             Title="{Binding Title}"
                             Price="{Binding Price}"
                             Author="{Binding Authors}"
+                            Buy="{Binding ElementName=catalog, Path=DataContext.Buy}"
                             />
                         </StackPanel>
                     </DataTemplate>

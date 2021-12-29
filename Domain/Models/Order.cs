@@ -12,6 +12,6 @@ namespace Domain.Models
 
         public Book Book { get; set; }
 
-        public int OrderPrice { get; set; }
+        public decimal OrderPrice { get; set; }
     }
 }

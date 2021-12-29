@@ -21,10 +21,10 @@ namespace BookShop.ViewModel
         private readonly IDbContext _context;
         private readonly AdminPanelPage _adminPanelPage;
         private readonly BookListPage _bookListPage;
-        private readonly CartPage _cartPage;
+        private readonly IUserService _userService;
         public bool IsAuthorized => CurrentUser.Role != Persistence.Constants.Role.Guest;
         public bool IsAdmin => CurrentUser.Role == Persistence.Constants.Role.Admin;
-        public UserDto CurrentUser { get; set; }
+        public UserDto CurrentUser => _userService.GetUserById(EntireUser.Id);
         public string Genres { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
@@ -44,57 +44,65 @@ namespace BookShop.ViewModel
         });
         public ICommand ToCatalog => new DelegateCommand(() =>
         {
-            if (CurrentPage == _bookListPage)
-            {
-                CurrentPage = _bookListPage;
-            }
-            else
-            {
-                CurrentPage = Ioc.Resolve<BookListPage>();
-            }
+            CurrentPage = Ioc.Resolve<BookListPage>();
         });
         public ICommand ToAdmin => new DelegateCommand(() => { CurrentPage = _adminPanelPage; });
-        public ICommand ToCart => new DelegateCommand(() => { CurrentPage = _cartPage; });
+        public ICommand ToCart => new DelegateCommand(() => { CurrentPage = Ioc.Resolve<CartPage>(); });
 
         public ICommand Register => new DelegateCommand(() =>
         {
             var registrationDialog = Ioc.Resolve<RegisterDialog>();
             registrationDialog.ShowDialog();
-            CurrentUser = new UserDto() { UserName = BookShop.CurrentUser.Name, Role = BookShop.CurrentUser.Role };
+            RaisePropertyChanged("CurrentUser");
             RaisePropertyChanged("IsAuthorized");
             RaisePropertyChanged("IsAdmin");
+            var page = Ioc.Resolve<BookListPage>();
+
+            CurrentPage = page;
+
+
+        });
+
+        public ICommand ToOffers => new DelegateCommand(() =>
+        {
+            CurrentPage = Ioc.Resolve<SpecialOffersPage>();
         });
         public ICommand SignIn => new DelegateCommand(() =>
         {
             var signInDialog = Ioc.Resolve<AuthorizeWindow>();
             signInDialog.ShowDialog();
-            CurrentUser = new UserDto() { UserName = BookShop.CurrentUser.Name, Role = BookShop.CurrentUser.Role, Balance = BookShop.CurrentUser.Balance };
+            RaisePropertyChanged("CurrentUser");
             RaisePropertyChanged("IsAuthorized");
             RaisePropertyChanged("IsAdmin");
+            var page = Ioc.Resolve<BookListPage>();
+
+            CurrentPage = page;
         });
         public ICommand SignOut => new DelegateCommand(() =>
         {
-            BookShop.CurrentUser.SignOut();
-            CurrentUser = new UserDto() { UserName = BookShop.CurrentUser.Name, Role = BookShop.CurrentUser.Role };
+            BookShop.EntireUser.SignOut();
             if (CurrentPage == _adminPanelPage)
             {
                 CurrentPage = null;
             }
+            RaisePropertyChanged("CurrentUser");
             RaisePropertyChanged("IsAuthorized");
             RaisePropertyChanged("IsAdmin");
+            var page = Ioc.Resolve<BookListPage>();
+
+            CurrentPage = page;
         }, () => IsAuthorized);
         public MainViewModel(
             IDbContext context,
             AdminPanelPage adminPanelPage,
             BookListPage bookListPage,
-            CartPage cartPage)
+            IUserService userService)
         {
             _context = context;
             _adminPanelPage = adminPanelPage;
             _bookListPage = bookListPage;
-            _cartPage = cartPage;
+            _userService = userService;
             CurrentPage = _bookListPage;
-            CurrentUser = new UserDto() { UserName = BookShop.CurrentUser.Name, Role = BookShop.CurrentUser.Role };
         }
     }
 }

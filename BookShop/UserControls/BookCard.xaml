@@ -61,8 +61,16 @@
         Text="{Binding Author,ElementName=bookCard}"/>
                 </StackPanel>
                 <DockPanel LastChildFill="False" Margin="5" Grid.Row="2">
-                    <TextBlock FontWeight="Bold" DockPanel.Dock="Left" VerticalAlignment="Center" Text="{Binding Price,ElementName=bookCard, StringFormat ={}{0} Р}"/>
-                    <Button Command="{Binding ElementName=bookCard, Path=Buy}" DockPanel.Dock="Right">Купить</Button>
+                    <TextBlock TextDecorations="Strikethrough" 
+                                DockPanel.Dock="Bottom"
+                               Text="{Binding ElementName=bookCard, Path=OldPrice, StringFormat={}{0} руб}"
+                               Visibility="{Binding ElementName=bookCard,Path=OldPriceVisability, Converter={StaticResource BooleanToVisibilityConverter}}"></TextBlock>
+                    <TextBlock FontWeight="Bold" DockPanel.Dock="Left" Visibility="{Binding ElementName=bookCard, Path=PriceVisability, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Text="{Binding Price,ElementName=bookCard, StringFormat ={}{0} руб}"/>
+                    <Button
+                            Visibility="{Binding ElementName=bookCard, Path=ButtonVisability, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Command="{Binding ElementName=bookCard, Path=Buy}" 
+                            CommandParameter="{Binding ElementName=bookCard, Path=CommandParameter}"
+                            DockPanel.Dock="Right">Купить</Button>
                 </DockPanel>
             </Grid>
         </materialDesign:Card>

@@ -25,6 +25,14 @@ namespace Application.Services
             return _context.Users.Any(u => u.UserName == userName);
         }
 
+        public UserDto GetUserById(int id)
+        {
+            var model = _context.Users.Include(x => x.Role).Include(x => x.Books).FirstOrDefault(x => x.Id == id);
+            if (model is null)
+                return null;
+            return new UserDto() { Balance = model.Balance, Id = model.Id, UserName = model.UserName, Role = model.Role.Name };
+        }
+
         public UserDto RegisterUser(UserDto user)
         {
             var role = _context.Roles.FirstOrDefault(x => x.Name == "Customer");
@@ -34,6 +42,7 @@ namespace Application.Services
                 UserName = user.UserName,
                 Role = role,
                 Balance = 0,
+                Id = user.Id,
                 Password = user.Password,
             };
             var entry = _context.Users.Add(model);
@@ -45,7 +54,7 @@ namespace Application.Services
             var model = _context.Users.Include(x => x.Role).FirstOrDefault(x => x.UserName == userName && x.Password == password);
             if (model == null)
                 return null;
-            return new UserDto() { Role = model.Role.Name, UserName = model.UserName, Balance = model.Balance };
+            return new UserDto() { Role = model.Role.Name, UserName = model.UserName, Balance = model.Balance, Id = model.Id };
 
         }
     }

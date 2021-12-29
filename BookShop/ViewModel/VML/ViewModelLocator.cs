@@ -20,5 +20,9 @@ namespace BookShop.ViewModel.VML
         public RegistrationViewModel RegistrationViewModel => Ioc.Resolve<RegistrationViewModel>();
 
         public AuthorizationViewModel AuthorizationViewModel => Ioc.Resolve<AuthorizationViewModel>();
+
+        public CartViewModel CartViewModel => Ioc.Resolve<CartViewModel>();
+
+        public SpecialOffersViewModel SpecialOffersViewModel => Ioc.Resolve<SpecialOffersViewModel>();
     }
 }

@@ -19,6 +19,8 @@ namespace Application.Mapper
                 Genres = string.Join(", ", book.Genres.Select(x => x.Name)),
                 ImagePath = book.ImagePath,
                 Price = book.Price,
+                IsNew = DateTime.Today.AddMinutes(2) < book.CreatedDate,
+                Id = book.Id,
             };
         }
     }

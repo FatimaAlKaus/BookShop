@@ -21,6 +21,56 @@ namespace BookShop.UserControls
     public partial class BookCard : UserControl
     {
 
+
+        public int OldPrice
+        {
+            get { return (int)GetValue(OldPriceProperty); }
+            set { SetValue(OldPriceProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OldPrice.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OldPriceProperty =
+            DependencyProperty.Register("OldPrice", typeof(int), typeof(BookCard), new PropertyMetadata(0));
+
+
+
+        public bool OldPriceVisability
+        {
+            get { return (bool)GetValue(OldPriceVisabilityProperty); }
+            set { SetValue(OldPriceVisabilityProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OldPriceVisability.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OldPriceVisabilityProperty =
+            DependencyProperty.Register("OldPriceVisability", typeof(bool), typeof(BookCard), new PropertyMetadata(false));
+
+
+
+
+
+        public bool ButtonVisability
+        {
+            get { return (bool)GetValue(ButtonVisabilityProperty); }
+            set { SetValue(ButtonVisabilityProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ButtonVisability.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ButtonVisabilityProperty =
+            DependencyProperty.Register("ButtonVisability", typeof(bool), typeof(BookCard), new PropertyMetadata(false));
+
+
+
+        public bool PriceVisability
+        {
+            get { return (bool)GetValue(PriceVisabilityProperty); }
+            set { SetValue(PriceVisabilityProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PriceVisability.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PriceVisabilityProperty =
+            DependencyProperty.Register("PriceVisability", typeof(bool), typeof(BookCard), new PropertyMetadata(false));
+
+
         public ICommand Expand
         {
             get { return (ICommand)GetValue(ExpandProperty); }
@@ -52,9 +102,14 @@ namespace BookShop.UserControls
 
         // Using a DependencyProperty as the backing store for Image.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ImageProperty =
-            DependencyProperty.Register("Image", typeof(ImageSource), typeof(BookCard));
+            DependencyProperty.Register("Image", typeof(ImageSource), typeof(BookCard), new PropertyMetadata(null));
 
-
+        public object CommandParameter
+        {
+            get { return (object)GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
+        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(object), typeof(BookCard));
 
 
 

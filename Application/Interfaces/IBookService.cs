@@ -10,5 +10,7 @@ namespace Application.Interfaces
     public interface IBookService
     {
         public void AddBook(BookDto bookDto);
+
+        public bool BuyBook(int bookId, int userId);
     }
 }

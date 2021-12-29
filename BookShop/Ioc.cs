@@ -69,7 +69,12 @@ namespace BookShop
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IBookService, BookService>();
+
+            services.AddTransient<CartViewModel>();
             services.AddTransient<CartPage>();
+
+            services.AddTransient<SpecialOffersPage>();
+            services.AddTransient<SpecialOffersViewModel>();
         }
     }
 }

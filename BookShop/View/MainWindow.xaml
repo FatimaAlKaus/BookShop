@@ -81,7 +81,7 @@
             </StackPanel>
             <Frame NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPage }">
 
-            </Frame>
+            </Frame> 
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -89,10 +89,13 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <RadioButton Content="Новинки" Style="{StaticResource MenuButton}" Grid.Row="0">
+
+
+
+                <RadioButton Command="{Binding ToOffers}" Content="Для вас" Style="{StaticResource MenuButton}" Grid.Row="0">
                 </RadioButton>
                 <RadioButton IsChecked="True" Command="{Binding ToCatalog}" Content="Каталог" Style="{StaticResource MenuButton}" Grid.Row="1"></RadioButton>
-                <RadioButton Command="{Binding ToCart}" Content="Корзина" Style="{StaticResource MenuButton}" Grid.Row="2"></RadioButton>
+                <RadioButton Command="{Binding ToCart}" Content="Коллекция" Style="{StaticResource MenuButton}" Grid.Row="2"></RadioButton>
                 <RadioButton Visibility="{Binding IsAdmin,Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding ToAdmin}" Content="Админка" Style="{StaticResource MenuButton}" Grid.Row="3"></RadioButton>
             </Grid>
         </Grid>

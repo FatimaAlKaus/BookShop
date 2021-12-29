@@ -1,6 +1,7 @@
 ﻿using Application.DTO;
 using Application.Interfaces;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,28 @@ namespace Application.Services
             };
             _context.Books.Add(book);
             _context.SaveChanges();
+        }
+
+        public bool BuyBook(int bookId, int userId)
+        {
+            var book = _context.Books.First(x => x.Id == bookId);
+            var user = _context.Users.Include(x=>x.Books).First(x => x.Id == userId);
+            if (user.Balance >= book.Price)
+            {
+                user.Balance -= book.Price;
+                user.Books.Add(book);
+                Order order = new Order()
+                {
+                    CreatedDate = DateTimeOffset.Now,
+                    Book = book,
+                    OrderPrice = book.Price,
+                    User = user,
+                };
+                _context.Orders.Add(order);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

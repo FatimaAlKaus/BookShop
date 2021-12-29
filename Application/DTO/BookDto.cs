@@ -13,7 +13,7 @@ namespace Application.DTO
         {
             get { return GetValidationError(columnName); }
         }
-
+        public bool IsNew { get; set; }
         private static readonly string[] ValidatedProperties = { "Title", "Price", "Authors" };
 
         public bool IsValid
@@ -56,6 +56,7 @@ namespace Application.DTO
             }
             return error;
         }
+        public int Id { get; set; }
         public string Title { get; set; }
         public decimal Price { get; set; }
         public string Authors { get; set; }
