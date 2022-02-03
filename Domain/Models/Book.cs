@@ -10,6 +10,7 @@ namespace Domain.Models
     {
         public string Title { get; set; }
         public decimal Price { get; set; }
+        public string ImagePath { get; set; }
         public ICollection<Author> Authors { get; set; }
 
         public ICollection<Genre> Genres { get; set; }

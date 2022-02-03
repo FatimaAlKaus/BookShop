@@ -1,0 +1,47 @@
+﻿<Page x:Class="BookShop.View.CartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookShop.View"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:bookCard="clr-namespace:BookShop.UserControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      
+      Title="CartPage"
+      DataContext="{Binding Source={StaticResource VML}, Path=CartViewModel}"
+      >
+
+    <Grid>
+        <TextBlock Visibility="{Binding IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Здесь пока ничего нет!" FontSize="22" FontWeight="Bold"/>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Books}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="FrameworkElement.Margin" Value="5"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <bookCard:BookCard 
+                            Width="200"
+                            Height="300"
+                            Image="{Binding ImagePath}"
+                            Title="{Binding Title}"
+                            Author="{Binding Authors}"
+                            />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+
+                    <ItemsPanelTemplate>
+                        <WrapPanel  IsItemsHost="True" Orientation="Horizontal"  />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Page>

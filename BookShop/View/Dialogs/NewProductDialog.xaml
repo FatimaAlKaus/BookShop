@@ -1,0 +1,131 @@
+﻿<Window x:Class="BookShop.View.Dialogs.NewProductDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookShop.View.Dialogs"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="{DynamicResource MaterialDesignDarkBackground}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+         BorderBrush="{DynamicResource PrimaryHueDarkBrush}"
+        BorderThickness="1"
+        SizeToContent="WidthAndHeight"
+        x:Name="AddProductWindow"
+        DataContext="{Binding Source={StaticResource VML}, Path=AddProductViewModel}"
+        Title="NewProductDialog" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid Background="Transparent" Grid.RowSpan="2" MouseDown="Grid_MouseDown_1"/>
+        <Grid Cursor="Hand" MouseDown="Grid_MouseDown" HorizontalAlignment="Right" Grid.Row="0" Background="Transparent">
+            <materialDesign:PackIcon Foreground="White" Kind="Close"/>
+        </Grid>
+        <TextBlock HorizontalAlignment="Center" Margin="5" Text="Добавить книгу"></TextBlock>
+        <StackPanel Grid.Row="1"
+      Margin="16">
+
+            <StackPanel  HorizontalAlignment="Stretch">
+                <Grid 
+                      Background="{DynamicResource MaterialDesignDarkSeparatorBackground}" HorizontalAlignment="Left">
+                    <Border Margin="-1" BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueDarkBrush}"></Border>
+                    <Grid Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding AddPhoto}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <materialDesign:PackIcon Visibility="{Binding HasPhoto,Converter={StaticResource BooleanToVisibilityConverter}}" Width="50" Height="50" Kind="InsertPhoto" />
+                    </Grid>
+
+                    <Image  Cursor="Hand" Width="100" Height="100" Source="{Binding CreatableBook.ImagePath}" Stretch="UniformToFill"/>
+                </Grid>
+                <TextBox Margin="5"
+  x:Name="TitleTextBox"
+  materialDesign:HintAssist.Hint="Название">
+                    <TextBox.Text>
+                        <Binding
+      Path="CreatableBook.Title"
+      UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <TextBox Margin="5"
+  x:Name="AuthorTextBox"
+  materialDesign:HintAssist.Hint="Автор">
+                    <TextBox.Text>
+                        <Binding
+      Path="CreatableBook.Authors"
+      UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox Margin="5"
+  x:Name="PriceTextBox"
+  materialDesign:HintAssist.Hint="Цена" PreviewTextInput="PriceTextBox_PreviewTextInput">
+                    <TextBox.Text>
+                        <Binding
+      Path="CreatableBook.Price"
+      UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="5" Text="{Binding Path=Genres,UpdateSourceTrigger=PropertyChanged}" Grid.Column="0"
+  materialDesign:HintAssist.Hint="Категории"/>
+                    <Button Command="{Binding AddCategories}"
+ Grid.Column="1" HorizontalAlignment="Stretch" Style="{StaticResource MaterialDesignFlatButton}" >
+                        <materialDesign:PackIcon Kind="Edit"/>
+                    </Button>
+                </Grid>
+                <StackPanel
+        Orientation="Horizontal"
+        HorizontalAlignment="Right">
+                    <Button
+          IsDefault="True"
+          Margin="0 8 8 0"
+          Command="{Binding Accept}"
+          CommandParameter="{Binding ElementName=AddProductWindow}"
+                        >
+                        ACCEPT
+                    </Button>
+                    <Button
+          Style="{StaticResource MaterialDesignFlatButton}"
+          IsCancel="True"
+          Margin="0 8 8 0"
+          Click="Button_Click"
+                        >
+                        CANCEL
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

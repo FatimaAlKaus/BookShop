@@ -6,8 +6,23 @@ using System.Threading.Tasks;
 
 namespace BookShop.ViewModel.VML
 {
-    public class ViewModelLocator
+    internal class ViewModelLocator
     {
         public MainViewModel MainViewModel => Ioc.Resolve<MainViewModel>();
+        public AdminPanelViewModel AdminPanelViewModel => Ioc.Resolve<AdminPanelViewModel>();
+
+        public AddProductViewModel AddProductViewModel => Ioc.Resolve<AddProductViewModel>();
+
+        public BookCatalogViewModel BookCatalogViewModel => Ioc.Resolve<BookCatalogViewModel>();
+
+        public SelectCategoriesViewModel SelectCategoriesViewModel => Ioc.Resolve<SelectCategoriesViewModel>();
+
+        public RegistrationViewModel RegistrationViewModel => Ioc.Resolve<RegistrationViewModel>();
+
+        public AuthorizationViewModel AuthorizationViewModel => Ioc.Resolve<AuthorizationViewModel>();
+
+        public CartViewModel CartViewModel => Ioc.Resolve<CartViewModel>();
+
+        public SpecialOffersViewModel SpecialOffersViewModel => Ioc.Resolve<SpecialOffersViewModel>();
     }
 }

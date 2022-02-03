@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Author : Entity
+    public class Order : Entity
     {
-        public string FullName { get; set; }
+        public User User { get; set; }
 
-        public ICollection<Book> Books { get; set; }
+        public Book Book { get; set; }
 
+        public decimal OrderPrice { get; set; }
     }
 }
